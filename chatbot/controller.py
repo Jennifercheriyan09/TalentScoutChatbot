@@ -1,6 +1,5 @@
 # chatbot/controller.py
 import json
-# ADD THESE IMPORTS AT TOP
 from chatbot.answer_evaluator import evaluate_answer
 from chatbot.state_manager import ConversationState
 from chatbot.prompts import (
@@ -39,7 +38,7 @@ def handle_user_input(message: str, state: ConversationState):
         return translate(reply_en, lang)
 
     # -------------------------------------------------
-    # FALLBACK TRIGGER (nonsense / unclear input)
+    # FALLBACK TRIGGER 
     # -------------------------------------------------
     if is_fallback_trigger(message):
         return translate(fallback_prompt(), lang)
@@ -94,7 +93,7 @@ def handle_user_input(message: str, state: ConversationState):
         # Store answer
         state.answers.append(message)
 
-        # 🔥 NEW: evaluate answer
+        # evaluate answer
         evaluation = evaluate_answer(
             question=state.current_question,
             answer=message,

@@ -156,7 +156,8 @@ if stage == "interview":
     user_audio = st.audio_input("", key=audio_key, label_visibility="collapsed")
 
     if user_audio:
-        audio_path = "temp_answer.wav"
+        os.makedirs("audio", exist_ok=True)
+        audio_path = "audio/temp_answer.wav"
         with open(audio_path, "wb") as f:
             f.write(user_audio.getvalue())
 

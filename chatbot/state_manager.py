@@ -12,7 +12,7 @@ class ConversationState:
             "location": None,
             "tech_stack": None,
         }
-        self.language = "en"   # 💥 Added multilingual support
+        self.language = "en"  
 
         self.current_question = None
         self.questions_asked = []
@@ -20,7 +20,7 @@ class ConversationState:
         self.evaluations = []  
         
         self.question_index = 0
-        self.total_questions = 4  # You fixed this earlier
+        self.total_questions = 4  
 
     def get_next_missing_field(self):
         for key, value in self.data.items():

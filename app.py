@@ -5,9 +5,23 @@ import streamlit as st
 from chatbot.state_manager import ConversationState
 from chatbot.controller import handle_user_input
 import os
+from pydub import AudioSegment
+from utils.speech_to_text import speech_to_text
+from utils.text_to_speech import text_to_speech
+
 
 st.set_page_config(page_title="TalentScout Hiring Assistant", layout="centered")
-
+# This snippet forces the browser to scroll to the bottom of the page
+st.markdown(
+    """
+    <script>
+    var body = window.parent.document.querySelector(".main");
+    console.log(body);
+    body.scrollTop = body.scrollHeight;
+    </script>
+    """,
+    unsafe_allow_html=True
+)
 st.title("🤖 TalentScout – AI Hiring Assistant")
 st.markdown(
     """
@@ -36,6 +50,9 @@ if "chat_history" not in st.session_state:
 if "audio_key" not in st.session_state:
     st.session_state.audio_key = 0
 
+if "input_mode" not in st.session_state:
+    st.session_state.input_mode = "text"
+
 state = st.session_state.state
 
 # ------------------------------------------
@@ -43,7 +60,7 @@ state = st.session_state.state
 # ------------------------------------------
 if state.stage == "language_select":
 
-    st.header("🌍 Choose your interview language")
+    st.header("Choose your interview language")
 
     LANGS = {
         "English": "en",
@@ -72,7 +89,6 @@ if len(st.session_state.chat_history) == 0:
     st.session_state.chat_history.append(("assistant", greeting_msg))
 
     # 🔊 Speak greeting
-    from utils.text_to_speech import text_to_speech
     st.session_state.tts_audio = text_to_speech(greeting_msg, lang=state.language)
 
 
@@ -137,53 +153,68 @@ for sender, text in st.session_state.chat_history:
     st.chat_message(sender).write(text)
 
 # ------------------------------------------
-# PLAY BOT AUDIO RESPONSE (SAFE)
+# AUDIO & SUBMISSION LOGIC
 # ------------------------------------------
+
+# 1. Handle Auto-Greeting Speak (Fix for the missing greeting)
 if st.session_state.tts_audio:
     st.audio(st.session_state.tts_audio, autoplay=True)
+    # Clear it after rendering so it doesn't loop on every rerun
     st.session_state.tts_audio = None
 
+# 2. Setup Input Interface
+final_input = None
 
-
-# ------------------------------------------
-# INPUT SECTION
-# ------------------------------------------
 if stage == "interview":
+    st.write("---")
+    col1, col2 = st.columns([0.85, 0.15])
+    
+    with col1:
+        # We use a unique key for the chat input to handle the text side
+        user_text = st.chat_input("Type your answer here...", key="text_input_field")
+        if user_text:
+            final_input = user_text
+            
+    with col2:
+        # The mic icon button to trigger the audio input widget
+        if st.button("🎤" if st.session_state.input_mode == "text" else "⌨️"):
+            st.session_state.input_mode = "voice" if st.session_state.input_mode == "text" else "text"
+            st.rerun()
 
-    st.markdown("### 🎤 Speak your answer:")
-
-    audio_key = f"audio_{st.session_state.audio_key}"
-    user_audio = st.audio_input("", key=audio_key, label_visibility="collapsed")
-
-    if user_audio:
-        os.makedirs("audio", exist_ok=True)
-        audio_path = "audio/temp_answer.wav"
-        with open(audio_path, "wb") as f:
-            f.write(user_audio.getvalue())
-
-        from utils.speech_to_text import speech_to_text
-        final_input = speech_to_text(audio_path, lang=state.language)
-
-        os.remove(audio_path)
-
+    # If user toggled to voice mode, show the recorder
+    if st.session_state.input_mode == "voice":
+        audio_data = st.audio_input("Recording...", label_visibility="collapsed", key=f"mic_{st.session_state.audio_key}")
+        if audio_data:
+            with st.spinner("Transcribing..."):
+                # Save and transcribe
+                temp_path = "temp_voice.wav"
+                with open(temp_path, "wb") as f:
+                    f.write(audio_data.getvalue())
+                
+                final_input = speech_to_text(temp_path, lang=state.language)
+                os.remove(temp_path)
+                
+                # Switch back to text mode for the next turn automatically
+                st.session_state.input_mode = "text"
 else:
-    # Greeting + Info collection → text only
-    final_input = st.chat_input("Type your response...")
+    # Non-interview stages (like greeting/setup)
+    user_text = st.chat_input("Type here...")
+    if user_text:
+        final_input = user_text
 
-
-# ------------------------------------------
-# PROCESS INPUT
-# ------------------------------------------
+# 3. Main Processing Logic
 if final_input:
-
+    # Adding user message to history
     st.session_state.chat_history.append(("user", final_input))
-
+    
+    # Get Bot Response
     bot_response = handle_user_input(final_input, state)
     st.session_state.chat_history.append(("assistant", bot_response))
-    from utils.text_to_speech import text_to_speech
+    
+    # Generate Audio for the NEW response
+    # This automatically "replaces" any pending audio in the session state
     st.session_state.tts_audio = text_to_speech(bot_response, lang=state.language)
-
-    if stage == "interview":
-        st.session_state.audio_key += 1
-
+    
+    # Prepare for next turn
+    st.session_state.audio_key += 1
     st.rerun()

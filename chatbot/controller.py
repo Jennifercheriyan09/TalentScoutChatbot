@@ -88,45 +88,82 @@ def handle_user_input(message: str, state: ConversationState):
     # -------------------------------------------------
     # INTERVIEW STAGE
     # -------------------------------------------------
+    # -------------------------------------------------
+    # INTERVIEW STAGE (REPLACED VERSION)
+    # -------------------------------------------------
     if state.stage == "interview":
-
-        # Store answer
+        # 1. Store original message (as typed by user) in history
         state.answers.append(message)
 
-        # evaluate answer
-        evaluation = evaluate_answer(
-            question=state.current_question,
-            answer=message,
-            role=state.data["position"]
-        )
+        # 2. INTERNAL TRANSLATION: Convert user response to English for processing
+        # This ensures the LLM 'brain' always works with English data
+        message_en = translate(message, "en") 
 
-        evaluation = json.loads(evaluation)
+        # 3. QUICK CHECK: Did they say "I don't know"? 
+        # (Checking the English version is much more reliable)
+        idk_keywords = ["don't know", "no idea", "not sure", "skip"]
+        is_idk = any(k in message_en.lower() for k in idk_keywords)
 
-        state.evaluations.append(evaluation)
+        if is_idk:
+            # Force the evaluation to be neutral/easy to avoid AI "teaching" the candidate
+            evaluation = {
+                "difficulty_recommendation": "easier", 
+                "communication_style": "brief"
+            }
+        else:
+            # 4. EVALUATE: Send English text to your LLM evaluator
+            eval_raw = evaluate_answer(
+                question=state.current_question, # Current question is already in English
+                answer=message_en,               # English translation of user answer
+                role=state.data["position"]
+            )
+            try:
+                evaluation = json.loads(eval_raw)
+            except:
+                # Fallback if LLM output isn't clean JSON
+                evaluation = {"difficulty_recommendation": "neutral", "communication_style": "neutral"}
 
-        # Ask next question if available
+        if not is_idk:
+            state.evaluations.append(evaluation)
+        else:
+            state.evaluations.append({"skipped": True})
+
+
+        # 5. GENERATE NEXT QUESTION
+        # 5. GENERATE NEXT QUESTION
         if state.question_index < state.total_questions:
+            
+            # --- FIX STARTS HERE ---
+            # If the user didn't know, don't send the literal "I don't know" to the AI.
+            # Send a instruction instead so the AI knows to move on without explaining.
+            context_answer = (
+                    "[SKIP_ANSWER]"
+                    if is_idk
+                    else message_en)
 
-            next_q = generate_adaptive_question(
+            # --- FIX ENDS HERE ---
+
+            next_q_en = generate_adaptive_question(
                 tech_stack=state.data["tech_stack"],
                 previous_questions=state.questions_asked,
-                last_answer=message,
+                last_answer=context_answer, # Pass the cleaned context here
                 role=state.data["position"],
-                difficulty=evaluation["difficulty_recommendation"],
-                communication_style=evaluation["communication_style"],
-                lang=state.language
+                difficulty=evaluation.get("difficulty_recommendation", "neutral"),
+                communication_style=evaluation.get("communication_style", "neutral"),
+                lang="en" 
             )
 
-            state.current_question = next_q
-            state.questions_asked.append(next_q)
+            state.current_question = next_q_en
+            state.questions_asked.append(next_q_en)
             state.question_index += 1
 
-            return translate(
-                f"Question {state.question_index}:\n{next_q}",
-                state.language
-            )
+            # 6. EXTERNAL TRANSLATION: Translate the English question to the user's language
+            translated_prefix = translate(f"Question {state.question_index}:", state.language)
+            translated_question = translate(next_q_en, state.language)
+            
+            return f"{translated_prefix}\n{translated_question}"
 
-        # Interview complete
+        # --- Save and Finish (same as your original) ---
         from utils.storage import save_candidate
         save_candidate(
             candidate_data=state.data,
@@ -137,7 +174,7 @@ def handle_user_input(message: str, state: ConversationState):
 
         state.stage = "done"
         return translate(end_prompt(), state.language)
-
+    
     # -------------------------------------------------
     # DONE STAGE
     # -------------------------------------------------

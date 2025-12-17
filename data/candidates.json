@@ -1,0 +1,190 @@
+[
+    {
+        "name_hash": "bda0a01c76aae97ef15d6b792f3dc3cbb6609d611e9c563a54a1393fe685e31b",
+        "email_hash": "893b8a27b37b7bc364cb845ccb7960429d8540ebbeb318b1708229f82c4dc257",
+        "phone_hash": "c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646",
+        "experience": "0",
+        "position": "ML intern",
+        "location": "Thane",
+        "tech_stack": "Python",
+        "technical_questions": [
+            "What is the difference between static typing and dynamic typing, and how does Python fit into this classification?",
+            "What is your experience with Python libraries, and have you used any for machine learning tasks?",
+            "Can you walk me through the process of handling imbalanced datasets in a classification task, and how you would implement techniques such as SMOTE or undersampling in Python to improve model performance, providing a specific example or code snippet to illustrate your approach?",
+            "Let's try something simpler, can you tell me what you think is the most basic concept in machine learning that you've learned so far, like something you'd find in a beginner's tutorial or course, and how you think it could be used in a real-world project?"
+        ],
+        "technical_answers": [
+            " I do not know the answer to this question.",
+            "Yes i have used it for classifcation tasks",
+            "i dont know",
+            "i dont know"
+        ],
+        "evaluations": [
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "concise",
+                "brief_feedback": "The candidate showed no knowledge of the topic."
+            },
+            {
+                "answer_quality": 2,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "Please provide more specific examples and details about the Python libraries used."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide any relevant information or techniques for handling imbalanced datasets."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide a basic concept in machine learning."
+            }
+        ]
+    },
+    {
+        "name_hash": "e5f4b2be4660781b26b608c3ec6bd335d9c7f226ce1d1d4d0d18558c35e87693",
+        "email_hash": "06582d073a8f9a61976426a577b33c5e859004309c87a3017f48f2795b207bfc",
+        "phone_hash": "f5a0e68287d872304f888a9369200853aa4acb9f9c2bd9d1c9f78c3cae78f6a5",
+        "experience": "0",
+        "position": "ml INTERN",
+        "location": "tHANE",
+        "tech_stack": "PYTHON",
+        "technical_questions": [
+            "What is the difference between static typing and dynamic typing, and how does Python's typing system fit into these categories?",
+            "Can you tell me about a time when you used Python for a project, what was it about, and what did you learn from it?",
+            "Let's start with something simple, what do you think machine learning is and how do you think Python can be used for it?",
+            "Can you elaborate on the process of training models, specifically how you would handle overfitting and underfitting in a Python-based machine learning project, and provide a simple example using a popular library like scikit-learn?"
+        ],
+        "technical_answers": [
+            "IDK",
+            "I HAVNET USED PYTHON FOR A PROJECT",
+            "ML IS BASICALLY TRAINING MODELS",
+            "NO IDEA"
+        ],
+        "evaluations": [
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide a relevant response to the question."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "Lack of relevant experience with Python is a significant concern."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "The answer lacks clarity and detail about machine learning and Python."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide any relevant information."
+            }
+        ]
+    },
+    {
+        "name_hash": "bda0a01c76aae97ef15d6b792f3dc3cbb6609d611e9c563a54a1393fe685e31b",
+        "email_hash": "893b8a27b37b7bc364cb845ccb7960429d8540ebbeb318b1708229f82c4dc257",
+        "phone_hash": "c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646",
+        "experience": "0",
+        "position": "ML intern",
+        "location": "Thane",
+        "tech_stack": "Python, SQL, Tensorflow",
+        "technical_questions": [
+            "What is the difference between a list and a tuple in Python?",
+            "Can you describe a scenario where you would use batch normalization in a deep neural network implemented using Tensorflow, and how would you implement it in Python code to improve the model's performance?",
+            "What is the purpose of the SQL SELECT statement in data preparation for machine learning models?",
+            "Can you walk me through the steps to handle class imbalance in a dataset when training a classification model using Tensorflow, and provide a high-level example of how you would implement it in Python?"
+        ],
+        "technical_answers": [
+            " List is basically a collection of new heterogeneous components whereas tuple is heterogeneous.",
+            " I have not used normalization",
+            " So SQL SELECT statement is used to find out or curate some rows from the table.",
+            " Yeah, so we can handle the class imbalance in a dataset. This can be done with the help of using a smart or a BAL over sampling or under sampling methods."
+        ],
+        "evaluations": [
+            {
+                "answer_quality": 2,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate's answer lacked clarity and accuracy in defining the difference between lists and tuples in Python."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "concise",
+                "brief_feedback": "Lack of experience with batch normalization is a significant gap for an ML intern role."
+            },
+            {
+                "answer_quality": 2,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "The answer lacks specificity and clarity on the role of SQL SELECT in data preparation for machine learning models."
+            },
+            {
+                "answer_quality": 2,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "The answer lacks specificity and technical details."
+            }
+        ]
+    },
+    {
+        "name_hash": "10fe82adb964fa73c3c60be251181c421193f56ae01ba671974d82365a08a410",
+        "email_hash": "9527a148b17120c3a781f829dd08bdfdf4b0842594f490dcd55af1ce93f550cc",
+        "phone_hash": "c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646",
+        "experience": "0",
+        "position": "ml intern",
+        "location": "Klayn",
+        "tech_stack": "Python",
+        "technical_questions": [
+            "What is the difference between static typing and dynamic typing in Python?",
+            "Can you walk me through how you would implement a simple neural network using Python to classify handwritten digits, and what considerations you would take into account when selecting an optimization algorithm for this task?",
+            "Can you tell me about a simple machine learning project you've worked on, what was the goal, and how did you use Python in it?",
+            "What is one basic concept in machine learning that you are familiar with, and can you give a simple example of how it is used in a real-world application?"
+        ],
+        "technical_answers": [
+            " So the difference between static typing and dynamic typing is that in cases of languages like Python, we can do dynamic typing. That is, we can define the variable as integer at one time and then later redefine it.",
+            "i dont know",
+            "i dont know",
+            " The basic concept of machine learning that I'm familiar with is basically classification and prediction and supervised and unsupervised learning. Also regression task and classification task. And let's say for an example I want to find whether I am stressed or non-stressed which is a classification problem. This can be done with the help of wearable devices. It was one of my projects."
+        ],
+        "evaluations": [
+            {
+                "answer_quality": 3,
+                "difficulty_recommendation": "increase",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate provided a basic understanding but lacked clarity and depth in their explanation."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide a meaningful response to the question."
+            },
+            {
+                "answer_quality": 1,
+                "difficulty_recommendation": "decrease",
+                "communication_style": "unclear",
+                "brief_feedback": "The candidate failed to provide a relevant example of a machine learning project."
+            },
+            {
+                "answer_quality": 3,
+                "difficulty_recommendation": "increase",
+                "communication_style": "verbose",
+                "brief_feedback": "Provide more specific and detailed explanations of machine learning concepts."
+            }
+        ]
+    }
+]

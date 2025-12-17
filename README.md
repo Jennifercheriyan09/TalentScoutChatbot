@@ -4,6 +4,9 @@ It simulates a real technical interview by collecting candidate details, generat
 
 The chatbot supports multilingual interaction, voice-based responses, and adaptive personalization, making the interview experience natural, inclusive, and efficient for both candidates and recruiters.
 
+Live Demo: http://56.228.81.80:8501
+Note: Due to browser security, voice features require HTTPS or specific browser flag configurations.
+
 # Key Capabilities
 
 1. Multilingual interview flow (Text + Voice)
@@ -135,3 +138,6 @@ Solution: Introduced an intermediate answer evaluation layer using LLMs to deriv
 
 TalentScout demonstrates how modern LLMs, speech technologies, and thoughtful UX design can be combined to build a realistic, scalable AI hiring assistant.
 The system goes beyond static Q&A by offering adaptive, personalized, and multilingual interviews, closely mimicking real-world recruiter behavior.
+
+# Deployment
+This application is deployed on an AWS EC2 Instance running Amazon Linux 2023.

@@ -4,6 +4,7 @@ It simulates a real technical interview by collecting candidate details, generat
 
 The chatbot supports multilingual interaction, voice-based responses, and adaptive personalization, making the interview experience natural, inclusive, and efficient for both candidates and recruiters.
 
+Video Demo: https://screenrec.com/share/Ekza3xmZDi
 Live Demo: http://56.228.81.80:8501
 Note: Due to browser security, voice features require HTTPS or specific browser flag configurations.
 
